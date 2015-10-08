@@ -1,0 +1,365 @@
+\documentclass[12pt]{article} %Here you control what type of document you are making. For instance, to write a letter in 11pt font you would write "\documentclass[11pt]{letter}". To make a presentation you would instead write "\documentcalss[11pt]{beamer}". See here for more info and options https://en.wikibooks.org/wiki/LaTeX/Document_Structure
+
+
+
+%\documentclass[a4paper,12pt]{article}
+\usepackage[utf8x]{inputenc}    % usually not necessary, but makes
+                                % LaTeX's guts use more modern
+                                % ``encoding'' - generally a good
+                                % idea by default
+
+\usepackage{amssymb,mathtools}  % load math packages
+\usepackage[margin=1in]{geometry} % use to set margin space
+
+\usepackage{setspace}           % for single and double spacing
+
+\usepackage{natbib}             % for references and citations
+\bibliographystyle{apsr}        % use APSR style for bib
+
+\usepackage{tikz, pgfplots}      % for game theory trees
+\usepackage{sgame}
+\usepackage{float}
+\usepackage{enumitem} % for better list management
+\usepgfplotslibrary{groupplots}
+
+\usepackage{booktabs} %formats tables
+
+\title{Article Class in \LaTeX} % can name title like this
+\author{ J. Alexander Branham \& Henry Pascoe} % and authors like this
+                                % Note that to print & you need a \
+                                % before it - many special
+                                % characters are like this 
+
+\usepackage{hyperref} % use this at the end of your preamble to make
+                      % hyperlinks in your pdf. It also makes an index
+                      % that readers can use to navigate around the
+                      % pdf 
+\hypersetup{
+  colorlinks=true, 
+  citecolor=black,
+  urlcolor=blue} % we can customize hyperref's defaults with this
+                 % command. 
+
+\begin{document} % this begins our document
+
+\maketitle % prints out title
+
+\begin{abstract}
+  This template is a brief introduction to writing in papers in \LaTeX. This is where the abstract goes. 
+\end{abstract}
+
+\section{Why use \LaTeX?}
+
+There is some learning curve to \LaTeX, and you already
+know Word or Google Docs or some other word processor. Why switch?
+These are just a handful of reasons: 
+
+\begin{itemize}
+\item \LaTeX~provides high quality typesetting (much higher than that
+  of Word or similar)
+\item It is easy to write mathematical equations 
+\item References and citations are easy and automatically formatted
+  (so switching from parenthetical to footnote citation is often as easy as
+  changing a few options)
+\item Figure and Table insertion is simple (ever try to get Word to
+  place a table where you want it? Nightmare!)
+\item \LaTeX~is free and open source
+\item You will always be able to open a \TeX~file. Try using Word 2013
+  to open a document written in Word 97. 
+\end{itemize}
+
+The primary difference between Word  and \LaTeX is that in Word \emph{what you see is what you get}. You control the whitespace, pagination, figure placement and other design elements of the document. In \LaTeX, \emph{what you see is what you mean}. You tell \LaTeX what you want using its syntax in a .tex file and it produces it for you, using decision rules developed by professional typesetters. 
+
+\doublespacing% double-spaced paper 
+%\singlespacing % single-spaced paper
+
+\section{Sections}
+
+You can break a paper up by sections or subsections
+
+\subsection{subsection}
+
+These can be numbered 
+
+\subsubsection*{subsubsection}
+or not
+
+\section{enumerate}
+
+``enumerate lists'' are nice numbered lists. % note the slightly odd
+                                % way of doing quotations in \LaTeX!
+
+\begin{enumerate}
+\item enumerate lists are a nice way of organizing information
+\item They don't have to be numbered, and they can be nested
+  \begin{enumerate}
+  \item See
+  \item these are nested and not numbered
+  \end{enumerate}
+\item There are other options (for most of what we go over this is the
+  case), you can find them by searching on the internet the package name. 
+\end{enumerate}
+
+\section{itemize}
+you can also do bullet points in \LaTeX
+
+\begin{itemize}
+\item like this
+\item second item
+  \begin{itemize}
+  \item and they can be nested
+    \begin{itemize}
+    \item and nested again
+    \end{itemize}
+\item so these lists 
+\begin{enumerate}
+\item are pretty flexible. 
+\end{enumerate}
+  \end{itemize}
+\end{itemize}
+
+\section{Math, Math, Math}
+
+you can write math like this using dollar signs for in text equations $\lambda=\frac{x^2}{u_B}$
+
+Or you can make centered equations with this to make centered equations.
+\[y=mx+b\]
+
+Equation numbering can be done by \LaTeX~as well:
+\begin{equation}
+  \label{eq:OLS}
+  Y \sim N(X\beta, \sigma^2)
+\end{equation}
+
+We can reference labels (from equations, figures, sections, etc) with
+the ref command like this: see Equation~\eqref{eq:OLS}. % note that
+                                % the hyperref package makes this
+                                % reference into a hyperlink that we
+                                % can click! 
+
+
+You can also align equations. For many things, including align, adding a asterisk suppresses equation numbering. 
+
+\begin{align*}
+&a^n+b^n=c^n\\
+\text{if   } & n \in \{3, 4, 5,...\}
+\end{align*}
+
+
+
+\section{References}
+Reference management is super easy in \LaTeX. The easiest way to
+manage your references is to keep them in a .bib file. Here is a .bib file that includes one reference that looks like this: 
+
+\begin{verbatim}
+@Book{zaller1992,
+	year = {1992},
+	publisher = {Cambridge University Press},
+	title = {The Nature and Origins of Mass Opinion},
+	author = {Zaller, John}
+}
+\end{verbatim}
+
+That's how the .bib file wants your references formatted. There
+are *many* programs to take care of this for you (Zotero, Mendeley,
+JabRef, ebib (for emacs), etc). We can then cite that reference easily
+either parenthetically \citep{zaller1992} or in text by talking about
+\citet{zaller1992}. % notice that we can click on these due to the
+                    % hyperref package! 
+
+
+
+
+\section{Tables}
+
+\begin{table}[hb]
+  \caption{Nonlinear Model Results}
+  % title of Table
+  \centering
+  % used for centering table
+  \begin{tabular}{@{}llll@{}}
+    % centered columns (4 columns)
+    \toprule  
+    Case & Method\#1 & Method\#2 & Method\#3\\[0.5ex]% heading
+\midrule
+    % inserting body of the table
+    1 & 50 & 837 & 970\\
+    2 & 47 & 877 & 230\\
+    3 & 31 & 25  & 415\\
+    4 & 35 & 144 & 2356\\
+    5 & 45 & 300 & 556\\
+\bottomrule 
+  \end{tabular}\label{table:nonlin} % is used to refer this table in
+                                % the text
+\end{table}
+
+
+
+There are \href{e.g.  http://www.tablesgenerator.com/}{online table generators} which can be helpful.  Additionally, most statistical computing software has packages for exporting tables as .tex files. You can reference the table like this Table~\ref{table:nonlin}
+
+\section{More \LaTeX things}
+\begin{itemize}
+\item \emph{Google is your friend!!!} When you run into a problem or
+  don't know how to do something, just google ``How to \ldots in
+  Latex'' and someone has probably asked before!
+\item \href{http://yihui.name/knitr/}{knitr} allows you to use
+  \LaTeX~and  R in the same document. \href{http://homepage.stat.uiowa.edu/~rlenth/StatWeave/StatWeave-manual.pdf}{StatWeave} does this for STATA, R, SAS, and MAPLE. 
+\item \href{https://git-scm.com/}{git} is a version control system
+  that plays nicely with \LaTeX~--- say goodbye to
+ ``thedocument-final.docx''  and ``thedocument-finalFINAL.docx''! 
+\begin{itemize}
+\item \href{https://bitbucket.org/}{bitbucket} is an implementation of .git that offers free private repositories to people with .edu email addresses. 
+\end{itemize}
+\
+\end{itemize}
+
+\bibliography{thebibfile} 
+
+\newpage
+\appendix
+
+\section{Installing and using \LaTeX}
+\label{sec:inst-using-latex}
+
+\subsection{Installation }
+\label{sec:installation-}
+
+\LaTeX~installations are operating system specific. The download is rather large, so
+make sure you have a stable internet connection that won't charge you
+for data overages! 
+\begin{itemize}
+\item Windows: Download \href{http://miktex.org/}{MiKTeX}
+\item Mac: Download
+  \href{https://tug.org/mactex/mactex-download.html}{MaCTeX}
+\item Linux: Installation instructions for Ubuntu are
+  \href{http://tex.stackexchange.com/questions/1092/how-to-install-vanilla-texlive-on-debian-or-ubuntu/95373#95373}{here} 
+  and other distros will be similar
+\end{itemize}
+
+\subsection{Using \LaTeX}
+\label{sec:using-latex}
+
+\LaTeX~by itself is just a program that takes text that has been
+marked up in a specific way and produces a (beautifully) typeset
+document (usually PDF). The windows and mac version of \LaTeX comes with an editor, TeXworks. TeXStudio is another LaTeX specific editor. There are many others.  You can also opt to use a general-purpose text editor like Emacs, vim, or Sublime instead. Each has very good support for \LaTeX.  
+
+\newpage
+\section{tikzpicture}
+You can also draw figures.
+
+\begin{figure}[H]\centering
+  \begin{tikzpicture}[scale=2.4][font=\small]
+    \node at (.5,5.15) {Home};
+    \node at (-.3,4.6) {$a$};
+    \node at (1.3,4.6) {$\neg a$};
+    \draw[,-] (.5,5)--(-1,4);
+    \draw[,-] (.5,5)--(2,4);
+    \node at (-1,3.85) {Foriegn};
+    \node at (2,3.85) {Foriegn};
+    
+    \draw[] (-1,3.7)--(-1.4,3);
+    \draw[] (-1,3.7)--(-.6,3);
+    \draw[very thick] (-1.1,3.5) to [out=270, in=-90] (-.9,3.5);
+    \node at (-1,3.2) {$s$};
+    \node at (-1.4,2.9) {0};
+    \node at (-.6,2.9) {$r_2$};
+    
+    \draw[] (2,3.7)--(1.6,3);
+    \draw[] (2,3.7)--(2.4,3);
+    \draw[very thick] (1.9,3.5) to [out=270, in=-90] (2.1,3.5);
+    \node at (2,3.2) {$s$};
+    \node at (1.6,2.9) {0};
+    \node at (2.4,2.9) {$r_2$};
+    
+    \node at (2, 2.7) {Home};
+    \node at (-1, 2.7) {Home};
+    
+    \draw[] (-1,2.5)--(-1.4,1.8);
+    \draw[] (-1,2.5)--(-.6,1.8);
+    \draw[very thick] (-1.1,2.3) to [out=270, in=-90] (-.9,2.3);
+    \node at (-1,2) {$e$};
+    \node at (-1.4,1.7) {0};
+    \node at (-.6,1.7) {$r_1 + s$};
+    
+    \draw[] (2,2.5)--(1.6,1.8);
+    \draw[] (2,2.5)--(2.4,1.8);
+    \draw[very thick] (2.1,2.3) to [out=270, in=-90] (1.9,2.3);
+    \node at (2,2) {$e$};
+    \node at (1.6,1.7) {0};
+    \node at (2.4,1.7) {$r_1 + s$};
+    
+    \draw[, -] (-1,1.2)--(-2, .3);
+    \draw[, -] (-1, 1.2)--(0, .3);
+    \node at (-1, 1.4) {T};
+    \node at (-1.7, .8) {c};
+    \node at (-.3, .8) {$\neg c$};
+    
+    \draw[, -] (2,1.2)--(1, .3);
+    \draw[, -] (2, 1.2)--(3, .3);
+    \node at (2, 1.4) {T};
+    \node at (1.3, .8) {c};
+    \node at (2.7, .8) {$\neg c$};
+    % (a,c)
+    \node at (-2.2, .1) {$r_1 + s -e$,};
+    \node at (-2.2, -.1) {$r_2-s$,};
+    \node at (-2.2, -.3) {$l$};
+    
+    % (a, not c)
+    \node at (-.3, .1) {$r_1+s-e-\beta_1-a$,};
+    \node at (-.3, -.1) {$r_2-s-\beta_2$,};
+    \node at (-.3, -.3) {$(1-q)(b)$};
+    
+    % (not a, c)
+    \node at (1.1, .1){$r_1+s-e$,};
+    \node at (1, -.1){$r_2-s$,};
+    \node at (1, -.3){$l$};
+    
+    % (not a, not c)
+    \node at (3, .1){$r_1+s-e-\beta_1$,};
+    \node at (3, -.1){$r_2-s-\beta_2$,};
+    \node at (3, -.3){$(1-q)(b)$};
+    
+  \end{tikzpicture}
+\end{figure}
+
+
+\begin{figure}[H]
+  \caption{Example functions}
+  \begin{tikzpicture}[xscale=1, yscale=5] %y in terms of pi
+    \draw[,->]  (0,0) -- (0,1.2);
+    \draw[,->] (0,0)--(6,0);
+    \node at (-.35, 1.2) {f(e)};
+    \node at (5.8, -.1) {e};
+    \draw[] (.1,1)--(-.1, 1);
+    \node at (-.2, 1) {1};
+    \node at (-.2,0) {0};
+    \draw[gray, ultra thick, domain=0.001:6] plot (\x, {1-exp(-.5*\x )});
+    \draw[red, dashed] (0, .7)--(2.4,.7);
+    \draw[red, dashed] (2.4, 0)--(2.4,.7);
+    \node[red] at (2.4, -.05) {$e^*$};
+    \node[red] at (-.2, .7) {$q^*$};
+  \end{tikzpicture}
+  \begin{tikzpicture}[xscale=1, yscale=5] %y in terms of pi
+    \draw[,->]  (0,0) -- (0,1.2);
+    \draw[,->] (0,0)--(6,0);
+    \node at (-.35, 1.2) {f(e)};
+    \node at (5.8, -.1) {e};
+    \draw[] (.1,1)--(-.1, 1);
+    \draw[gray, ultra thick, domain=0.001:6] plot (\x, {.0045*(\x^3)});
+    \node at (-.2, 1) {1};
+    \node at (-.2,0) {0};
+    \draw[red, dashed] (0, .7)--(5.3,.7);
+    \draw[red, dashed] (5.3, 0)--(5.3,.7);
+    \node[red] at (5.3, -.05) {$e^*$};
+    \node[red] at (-.2, .7) {$q^*$};
+  \end{tikzpicture}
+\end{figure}
+
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
